@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: nisum-user-api
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:nisum_user_api;DB_CLOSE_DELAY=-1
+    username: nisumuserapi
+    password: nisumuserapi
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  h2:
+    console:
+      enabled: true
+
+  security:
+    jwt:
+      secretKey: gjqXJrifzDXyS89W4SN1Sgm9SKMsFQR5
+      expiration: 15
+
+  #sql:
+  #  init:
+  #    data-locations: classpath:/database/data.sql
+
+  management:
+    endpoint:
+      health:
+        show-details: always
