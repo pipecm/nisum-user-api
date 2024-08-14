@@ -31,7 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class NisumUserApiApplicationTests extends BaseTest {
 
-	private enum BadRequestScenario { EMPTY_EMAIL, EMPTY_NAME, EMPTY_PASSWORD, EMPTY_PHONE, INVALID_EMAIL, INVALID_PHONE }
+	private enum BadRequestScenario {
+		EMPTY_EMAIL, EMPTY_NAME, EMPTY_PASSWORD, EMPTY_PHONE, NON_COMPLAINING_PASSWORD, INVALID_EMAIL, INVALID_PHONE
+	}
 
 	@Autowired
 	private JwtUtil jwtUtil;
@@ -132,7 +134,7 @@ class NisumUserApiApplicationTests extends BaseTest {
 
 	@ParameterizedTest
 	@EnumSource(BadRequestScenario.class)
-	void whenSendingBadRequestThenErrorIsThrown(BadRequestScenario scenario) throws Exception {
+	void whenSendingBadRequestOnUserCreationThenErrorIsThrown(BadRequestScenario scenario) throws Exception {
 		ApiUserDto userRequest = readFile(CREATE_USER_DTO_REQUEST_PATH, new TypeReference<>() {});
 		String errorMessage = EMPTY_STRING;
 
@@ -152,6 +154,10 @@ class NisumUserApiApplicationTests extends BaseTest {
 			case EMPTY_PHONE:
 				userRequest.getPhones().getFirst().setPhoneNumber(null);
 				errorMessage = EMPTY_OR_INVALID_PHONE_MSG;
+				break;
+			case NON_COMPLAINING_PASSWORD:
+				userRequest.setPassword(PASSWORD_NOT_ACCEPTED);
+				errorMessage = NON_COMPLAINING_PASSWORD_MSG;
 				break;
 			case INVALID_EMAIL:
 				userRequest.setEmail(INVALID_EMAIL);

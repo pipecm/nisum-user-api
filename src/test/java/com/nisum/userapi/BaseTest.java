@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public abstract class BaseTest {
     public static final String EMAIL = "fulano@nisum.com";
-    public static final String DECODED_PASSWORD = "fd07s9fd76d";
+    public static final String DECODED_PASSWORD = "fd07s9fd76D&";
     public static final String ENCODED_PASSWORD = "$2a$10$VtLnU/ZYARTQOThiocEuue3w6xLMi0Z/PO3KvSBwwDEWuaHN2tfq2";
     public static final String NO_EXCEPTION_THROWN = "No exception thrown";
     public static final String USER_ALREADY_EXISTS_MSG = "User already exists";
@@ -28,11 +28,9 @@ public abstract class BaseTest {
     public static final Date TOKEN_EXPIRATION = Date.from(Instant.now().plusSeconds(900L));
     public static final LocalDateTime LDT_TOKEN_EXPIRATION = TOKEN_EXPIRATION.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     public static final String INVALID_LOGIN_MSG = "Invalid email and/or password";
-    public static final UUID LOGIN_ID = UUID.fromString("d568123c-0520-460f-84d9-1b127569978a");
     public static final String USERS_ENDPOINT = "/users";
     public static final String LOGIN_ENDPOINT = "/login";
     public static final String ERROR_MSG_JSON_PATH = "$.mensaje";
-    public static final String BEARER_TOKEN = "Bearer %s";
     public static final String ISE_ERROR_MSG = "An error occurred";
     public static final String WRONG_EMAIL = "nonregistered@nisum.com";
     public static final String WRONG_PASSWORD = "nonregistered";
@@ -45,6 +43,10 @@ public abstract class BaseTest {
     public static final String EMPTY_STRING = "";
     public static final String INVALID_EMAIL = "user@nisum";
     public static final String INVALID_PHONE = "ABC";
+    public static final String NON_COMPLAINING_PASSWORD_MSG = "Password does not met the requirements";
+    public static final String PASSWORD_NOT_ACCEPTED = "fd07s9fd76";
+    public static final String PASSWORD_REGEX_FIELD = "passwordRegex";
+    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$";
 
     protected static ObjectMapper objectMapper;
 

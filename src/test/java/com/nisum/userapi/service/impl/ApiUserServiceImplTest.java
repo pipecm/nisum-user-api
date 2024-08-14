@@ -12,6 +12,8 @@ import com.nisum.userapi.mapper.ApiUserPhoneMapper;
 import com.nisum.userapi.repository.ApiUserLoginRepository;
 import com.nisum.userapi.repository.ApiUserPhoneRepository;
 import com.nisum.userapi.repository.ApiUserRepository;
+import com.nisum.userapi.util.ApiUserUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
 
@@ -34,9 +37,6 @@ class ApiUserServiceImplTest extends BaseTest {
     private final PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
 
     @Mock
-    private ApiUserLoginRepository loginRepository;
-
-    @Mock
     private ApiUserPhoneRepository phoneRepository;
 
     @Mock
@@ -45,11 +45,19 @@ class ApiUserServiceImplTest extends BaseTest {
     @Mock
     private ApiUserPhoneMapper phoneMapper;
 
+    @Mock
+    private ApiUserUtils apiUserUtils;
+
     @InjectMocks
     private ApiUserMapper userMapper = spy(new ApiUserMapper(passwordEncoder));
 
     @InjectMocks
     private ApiUserServiceImpl userService;
+
+    @BeforeEach
+    void setUp() {
+        ReflectionTestUtils.setField(apiUserUtils, PASSWORD_REGEX_FIELD, PASSWORD_REGEX);
+    }
 
     @Test
     void whenCreatingNonExistingUserThenUserCreatedSuccessfully() throws Exception {
@@ -65,6 +73,8 @@ class ApiUserServiceImplTest extends BaseTest {
         when(userRepository.save(any(ApiUser.class))).thenReturn(userAfterSaving);
         when(passwordEncoder.encode(DECODED_PASSWORD)).thenReturn(ENCODED_PASSWORD);
         when(phoneRepository.save(any(ApiUserPhone.class))).thenReturn(phoneAfterSaving);
+
+        doCallRealMethod().when(apiUserUtils).validate(any(ApiUserDto.class));
 
         ApiUserDto created = userService.createUser(dtoRequest);
 

@@ -32,10 +32,11 @@ public class ApiUserServiceImpl implements ApiUserService {
     private final ApiUserPhoneRepository phoneRepository;
     private final ApiUserPhoneMapper phoneMapper;
     private final ApiUserMapper userMapper;
+    private final ApiUserUtils apiUserUtils;
 
     @Override
     public ApiUserDto createUser(ApiUserDto apiUserDto) {
-        ApiUserUtils.validate(apiUserDto);
+        apiUserUtils.validate(apiUserDto);
 
         userRepository
                 .findByEmail(apiUserDto.getEmail())
