@@ -18,7 +18,6 @@ public class ApiUserPhoneMapper {
 
     public ApiUserPhoneDto map(ApiUserPhone apiUserPhone) {
         return ApiUserPhoneDto.builder()
-                //.id(apiUserPhone.getId())
                 .countryCode(apiUserPhone.getCountryCode())
                 .cityCode(apiUserPhone.getCityCode())
                 .phoneNumber(apiUserPhone.getPhoneNumber())

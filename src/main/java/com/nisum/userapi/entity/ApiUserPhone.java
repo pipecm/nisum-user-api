@@ -1,15 +1,15 @@
 package com.nisum.userapi.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.UUID;
 
 @Data
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "api_user_phone")
 public class ApiUserPhone {
 

@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'jacoco'
 }
 
 group = 'com.nisum'
@@ -47,3 +48,43 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+test {
+	finalizedBy jacocoTestReport
+}
+
+jacoco {
+	toolVersion = "0.8.12"
+}
+
+jacocoTestReport {
+	dependsOn test
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"com/nisum/userapi/dto/*.*",
+					"com/nisum/userapi/entity/*.*",
+					"com/nisum/userapi/*Application*.*"
+			])
+		}))
+	}
+
+	reports {
+		xml.required = false
+		csv.required = false
+		html.required = true
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.8
+			}
+		}
+	}
+}
+
+check.dependsOn jacocoTestCoverageVerification

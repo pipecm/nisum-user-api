@@ -1,8 +1,10 @@
 package com.nisum.userapi.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.UUID;
 @Data
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "api_user")
 public class ApiUser {
 
@@ -37,8 +41,10 @@ public class ApiUser {
     @Column(name = "user_active")
     private boolean active;
 
+    @Transient
     private LocalDateTime lastLogin;
 
+    @Transient
     private String lastToken;
 
     @OneToMany(mappedBy = "apiUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

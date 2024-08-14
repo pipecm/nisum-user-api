@@ -1,0 +1,12 @@
+{
+  "name": "Fulano Mengano",
+  "email": "fulano@nisum.com",
+  "password": "fd07s9fd76d",
+  "phones" : [
+    {
+      "number": "95804761",
+      "citycode": "9",
+      "countrycode": "56"
+    }
+  ]
+}

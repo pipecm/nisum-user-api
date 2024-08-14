@@ -10,9 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
@@ -20,18 +17,6 @@ public class ApiUserControllerImpl implements ApiUserController {
 
     private final ApiUserService apiUserService;
     private final LoginService loginService;
-
-    @Override
-    @GetMapping
-    public ResponseEntity<List<ApiUserDto>> findAllUsers() {
-        return ResponseEntity.ok(apiUserService.findAllUsers());
-    }
-
-    @Override
-    @GetMapping("/{userId}")
-    public ResponseEntity<ApiUserDto> findUser(@PathVariable UUID userId) {
-        return ResponseEntity.ok(apiUserService.findUser(userId));
-    }
 
     @Override
     @PostMapping

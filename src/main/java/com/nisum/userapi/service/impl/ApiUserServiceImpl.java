@@ -19,13 +19,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class ApiUserServiceImpl implements ApiUserService {
 
     private static final String NOT_FOUND_MSG = "User not found";
+    private static final String ALREADY_EXISTS_MSG = "User already exists";
 
     private final ApiUserRepository userRepository;
     private final ApiUserLoginRepository loginRepository;
@@ -34,29 +34,12 @@ public class ApiUserServiceImpl implements ApiUserService {
     private final ApiUserMapper userMapper;
 
     @Override
-    public List<ApiUserDto> findAllUsers() {
-        return userRepository.findAll()
-                .stream()
-                .map(this::processExistingUser)
-                .map(userMapper::map)
-                .toList();
-    }
-
-    @Override
-    public ApiUserDto findUser(UUID userId) {
-        return userRepository.findById(userId)
-                .map(this::processExistingUser)
-                .map(userMapper::map)
-                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, NOT_FOUND_MSG));
-    }
-
-    @Override
     public ApiUserDto createUser(ApiUserDto apiUserDto) {
         ApiUserUtils.validate(apiUserDto);
 
         userRepository
                 .findByEmail(apiUserDto.getEmail())
-                .ifPresent(user -> { throw new ApiException(HttpStatus.CONFLICT, "User already exists"); });
+                .ifPresent(user -> { throw new ApiException(HttpStatus.CONFLICT, ALREADY_EXISTS_MSG); });
 
         ApiUser savedApiUser = userRepository.save(userMapper.map(apiUserDto));
 
@@ -83,11 +66,6 @@ public class ApiUserServiceImpl implements ApiUserService {
         return userRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(NOT_FOUND_MSG));
-    }
-
-    private ApiUser processExistingUser(ApiUser apiUser) {
-        apiUser.setLastLogin(loginRepository.findLastLogin(apiUser.getId()).orElse(null));
-        return apiUser;
     }
 
     private ApiUserPhone savePhone(ApiUser apiUser, ApiUserPhone apiUserPhone) {

@@ -17,16 +17,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class LoginServiceImpl implements LoginService {
 
     private static final String INVALID_LOGIN_MSG = "Invalid email and/or password";
+    private static final String USER_NOT_FOUND_MSG = "User not found";
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
@@ -42,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
 
             ApiUser user = userRepository
                     .findByEmail(authentication.getName())
-                    .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "User not found"));
+                    .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, USER_NOT_FOUND_MSG));
 
             ApiUserLogin apiUserLogin = loginRepository.save(new ApiUserLogin(user, jwtUtil.createToken(userMapper.map(user))));
 

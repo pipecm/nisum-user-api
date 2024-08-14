@@ -1,0 +1,16 @@
+{
+  "id": "3caca41c-8177-4cdf-9c38-44c1fe04bd80",
+  "name": "Fulano Mengano",
+  "email": "fulano@nisum.com",
+  "password": "fd07s9fd76d",
+  "phones": [
+    {
+      "countrycode": "56",
+      "citycode": "9",
+      "number": "95804761"
+    }
+  ],
+  "created": "2024-08-13T20:04:08.108920231",
+  "modified": "2024-08-13T20:04:08.108920231",
+  "isactive": true
+}
