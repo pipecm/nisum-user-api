@@ -19,7 +19,7 @@ This is a project intended for applying to a position at Nisum. It was built wit
 
 1. Clone the following GitHub repository:
 ```
-https://github.com/pipecm/nisum-user-api.gitt
+https://github.com/pipecm/nisum-user-api.git
 ```
 2. Move to the project's directory:
 ```
