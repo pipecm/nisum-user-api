@@ -1,5 +1,6 @@
 package com.nisum.userapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiUserLoginDto {
 
     @Schema(name = "username", description = "Email of the user who wants to login", example = "john.jackson@nisum.com")
