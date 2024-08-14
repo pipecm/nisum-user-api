@@ -32,7 +32,7 @@ spring:
     init:
       data-locations: classpath:/database/database.sql
 
-  management:
-    endpoint:
-      health:
-        show-details: always
+management:
+  endpoint:
+    health:
+      show-details: always

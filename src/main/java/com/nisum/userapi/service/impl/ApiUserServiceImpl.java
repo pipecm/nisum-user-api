@@ -25,10 +25,9 @@ import java.util.List;
 public class ApiUserServiceImpl implements ApiUserService {
 
     private static final String NOT_FOUND_MSG = "User not found";
-    private static final String ALREADY_EXISTS_MSG = "User already exists";
+    private static final String ALREADY_EXISTS_MSG = "El correo ya se encuentra registrado";
 
     private final ApiUserRepository userRepository;
-    private final ApiUserLoginRepository loginRepository;
     private final ApiUserPhoneRepository phoneRepository;
     private final ApiUserPhoneMapper phoneMapper;
     private final ApiUserMapper userMapper;

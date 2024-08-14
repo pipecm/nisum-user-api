@@ -17,7 +17,7 @@ public abstract class BaseTest {
     public static final String DECODED_PASSWORD = "fd07s9fd76D&";
     public static final String ENCODED_PASSWORD = "$2a$10$VtLnU/ZYARTQOThiocEuue3w6xLMi0Z/PO3KvSBwwDEWuaHN2tfq2";
     public static final String NO_EXCEPTION_THROWN = "No exception thrown";
-    public static final String USER_ALREADY_EXISTS_MSG = "User already exists";
+    public static final String USER_ALREADY_EXISTS_MSG = "El correo ya se encuentra registrado";
     public static final String USER_NOT_FOUND_MSG = "User not found";
     public static final String CREATE_USER_DTO_REQUEST_PATH = "src/test/resources/requests/create_user_dto_request.json";
     public static final String CREATE_USER_DTO_RESPONSE_PATH = "src/test/resources/responses/create_user_dto_response.json";
